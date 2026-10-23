@@ -1,326 +1,463 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 680" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" width="100%" height="100%">
   <defs>
-    <!-- كېچىلىك ئاسمان ۋە كۆك بايراق تەگلىك رەڭگى -->
+    <!-- 1. چوڭقۇر كېچىلىك ئاسمان ۋە مەركىزىي كۆك نۇر -->
     <linearGradient id="bgSky" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#050b12" />
-      <stop offset="50%" stop-color="#0a1826" />
-      <stop offset="85%" stop-color="#07121d" />
-      <stop offset="100%" stop-color="#020508" />
+      <stop offset="0%" stop-color="#040911" />
+      <stop offset="50%" stop-color="#081523" />
+      <stop offset="85%" stop-color="#06101b" />
+      <stop offset="100%" stop-color="#020509" />
     </linearGradient>
 
-    <radialGradient id="blueAtmos" cx="50%" cy="48%" r="55%">
-      <stop offset="0%" stop-color="#00AFDE" stop-opacity="0.22" />
-      <stop offset="55%" stop-color="#0a2740" stop-opacity="0.12" />
-      <stop offset="100%" stop-color="#03070c" stop-opacity="0" />
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="52%">
+      <stop offset="0%" stop-color="#00AFDE" stop-opacity="0.20" />
+      <stop offset="55%" stop-color="#082640" stop-opacity="0.09" />
+      <stop offset="100%" stop-color="#020509" stop-opacity="0" />
     </radialGradient>
 
-    <!-- چاچما يۇلتۇز زەررىچىلىرى فىلتىرى (Stardust Cloud Filter) -->
-    <filter id="stardustCloud" x="-25%" y="-25%" width="150%" height="150%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4" seed="15" result="stars" />
-      <feColorMatrix type="matrix" in="stars" result="mask" values="0 0 0 0 1
-                0 0 0 0 1
-                0 0 0 0 1
-                0 0 0 9.2 -5.1" />
-      <feComposite in="SourceGraphic" in2="mask" operator="in" result="dust" />
-      <feGaussianBlur in="dust" stdDeviation="0.9" result="glowDust" />
-      <feGaussianBlur in="SourceGraphic" stdDeviation="4.5" result="aura" />
-      <feColorMatrix type="matrix" in="aura" result="softAura" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.28 0" />
+    <!-- 2. نەپىس كۆك نۇر ئۈنۈمى فىلتىرلىرى -->
+    <filter id="softBlueGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="1.6" result="b1" />
+      <feGaussianBlur stdDeviation="4.5" result="b2" />
       <feMerge>
-        <feMergeNode in="softAura" />
-        <feMergeNode in="glowDust" />
-        <feMergeNode in="dust" />
+        <feMergeNode in="b2" />
+        <feMergeNode in="b1" />
+        <feMergeNode in="SourceGraphic" />
       </feMerge>
     </filter>
 
-    <!-- نەپىس كۆك نۇر فىلتىرى -->
-    <filter id="crispGlow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="1.4" result="g1" />
-      <feGaussianBlur stdDeviation="3.8" result="g2" />
+    <filter id="intenseGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.2" result="g1" />
+      <feGaussianBlur stdDeviation="6" result="g2" />
+      <feGaussianBlur stdDeviation="12" result="g3" />
       <feMerge>
+        <feMergeNode in="g3" />
         <feMergeNode in="g2" />
         <feMergeNode in="g1" />
         <feMergeNode in="SourceGraphic" />
       </feMerge>
     </filter>
 
-    <!-- يۇلتۇز تۈركۈمى نۇقتىسى -->
-    <g id="vNode">
-      <circle r="1.6" fill="#00AFDE" opacity="0.65" />
-      <circle r="0.85" fill="#E8FAFF" />
-    </g>
+    <!-- 3. ئاي ۋە يۇلتۇز قېلىپى (سەل ئاستىغا چۈشۈرۈلگەن ئورنى) -->
+    <clipPath id="emblemClip">
+      <!-- ئاي (Crescent) -->
+      <path d="M 590,365 A 104,104 0 1,0 590,499 A 85,85 0 1,1 590,365 Z" />
+      <!-- يۇلتۇز (5-Pointed Star) -->
+      <polygon points="593,433 628,423 636,387 658,417 694,414 672,443 693,473 657,461 634,490 627,454" />
+    </clipPath>
 
-    <!-- زەررىچە توپى قېلىپى -->
-    <g id="sparkCluster">
-      <circle cx="0" cy="0" r="1.0" fill="#FFFFFF" />
-      <circle cx="4" cy="-3" r="0.7" fill="#68DCFF" />
-      <circle cx="-3" cy="4" r="0.8" fill="#00AFDE" />
-      <circle cx="7" cy="2" r="0.5" fill="#B8F0FF" />
-      <circle cx="-5" cy="-2" r="0.6" fill="#38C6F4" />
-      <circle cx="2" cy="6" r="0.9" fill="#E0F8FF" />
-      <circle cx="-2" cy="-6" r="0.5" fill="#00AFDE" />
+    <!-- 4. كۆككە مايىل مىڭلىغان ئۇششاق يۇمىلاق نۇقتىلار قېلىپى (Blue-Tinted Micro-Dot Patterns) -->
+    <!-- 1-قەۋەت: زىچ بايراق كۆكى نۇقتىلىرى -->
+    <pattern id="dotGrid1" width="15" height="15" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="3" r="0.95" fill="#00AFDE" />
+      <circle cx="8" cy="2" r="0.7" fill="#0088CC" />
+      <circle cx="13" cy="4" r="1.1" fill="#29B6F6" />
+      <circle cx="5" cy="7" r="0.8" fill="#0099E6" />
+      <circle cx="11" cy="8" r="1.2" fill="#5CE1FF" />
+      <circle cx="3" cy="12" r="1.0" fill="#00AFDE" />
+      <circle cx="9" cy="13" r="0.75" fill="#0277BD" />
+      <circle cx="14" cy="12" r="0.9" fill="#38C6F4" />
+      <circle cx="6" cy="10" r="0.6" fill="#7CE0FF" />
+      <circle cx="11" cy="5" r="0.65" fill="#00AFDE" />
+    </pattern>
+
+    <!-- 2-قەۋەت: ئوتتۇرا چوڭلۇقتىكى نۇرلۇق كۆك نۇقتىلار -->
+    <pattern id="dotGrid2" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="5" r="1.3" fill="#38C6F4" />
+      <circle cx="12" cy="3" r="0.85" fill="#00AFDE" />
+      <circle cx="18" cy="8" r="1.15" fill="#0095D9" />
+      <circle cx="7" cy="11" r="1.4" fill="#68DCFF" />
+      <circle cx="15" cy="15" r="1.0" fill="#29B6F6" />
+      <circle cx="3" cy="17" r="1.05" fill="#00AFDE" />
+      <circle cx="10" cy="18" r="0.8" fill="#0080C0" />
+      <circle cx="17" cy="4" r="0.7" fill="#8CE8FF" />
+    </pattern>
+
+    <!-- 3-قەۋەت: چاقنايدىغان ئوچۇق كۆك يۇلتۇز نۇقتىلىرى -->
+    <pattern id="dotGrid3" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="6" cy="6" r="1.5" fill="#7CE0FF" />
+      <circle cx="19" cy="8" r="1.25" fill="#00AFDE" />
+      <circle cx="13" cy="17" r="1.6" fill="#A6EEFF" />
+      <circle cx="5" cy="21" r="1.15" fill="#29B6F6" />
+      <circle cx="22" cy="22" r="1.4" fill="#5CE1FF" />
+    </pattern>
+
+    <!-- خەرىتە بۇلۇڭلىرىدىكى يۇلتۇز تۈگۈنى -->
+    <g id="mapVertex">
+      <circle r="1.8" fill="#00AFDE" opacity="0.65" />
+      <circle r="0.9" fill="#B8F0FF" />
     </g>
 
     <style>
-      /* نەپىس خەرىتە سىزىقىنىڭ سىزىلىش ھەرىكىتى */
-      .map-wire {
-        fill: none;
-        stroke: #5CE1FF;
-        stroke-width: 0.75;
-        stroke-linejoin: miter;
-        stroke-dasharray: 2300;
-        stroke-dashoffset: 2300;
-        animation: traceLine 4.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      /* 1. ئارقا تەگلىكتىكى يۇلتۇزلارنىڭ توختىماي نەپىس لەيلەش ۋە چاقناش ھەرىكىتى */
+      .star-layer-1 {
+        animation: floatStars1 16s ease-in-out infinite alternate,
+                   twinkleSlow 3.5s ease-in-out infinite alternate;
+      }
+      .star-layer-2 {
+        animation: floatStars2 20s ease-in-out infinite alternate,
+                   twinkleSlow 2.8s ease-in-out 1.2s infinite alternate;
+      }
+      .star-layer-3 {
+        animation: floatStars3 24s ease-in-out infinite alternate,
+                   twinkleSlow 4.2s ease-in-out 2.1s infinite alternate;
       }
 
-      .map-wire-glow {
+      @keyframes floatStars1 {
+        0% { transform: translate(0px, 0px); }
+        100% { transform: translate(12px, -10px); }
+      }
+      @keyframes floatStars2 {
+        0% { transform: translate(0px, 0px); }
+        100% { transform: translate(-14px, -8px); }
+      }
+      @keyframes floatStars3 {
+        0% { transform: translate(0px, 0px); }
+        100% { transform: translate(8px, 12px); }
+      }
+      @keyframes twinkleSlow {
+        0% { opacity: 0.25; }
+        100% { opacity: 0.95; }
+      }
+
+      /* 2. خەرىتە ئاساسىي نۇر قەۋىتى ۋە يىپ سىزىقى */
+      .map-base-glow {
+        fill: rgba(0, 175, 222, 0.03);
+        stroke: #00AFDE;
+        stroke-width: 2.2;
+        stroke-linejoin: round;
+        opacity: 0.4;
+        animation: pulseMapGlow 4.5s ease-in-out infinite alternate;
+      }
+
+      /* مارجانلار تىزىلغان نەپىس يىپ سىزىق */
+      .map-thread-line {
         fill: none;
         stroke: #00AFDE;
-        stroke-width: 1.8;
-        opacity: 0.45;
-        stroke-dasharray: 2300;
-        stroke-dashoffset: 2300;
-        animation: traceLine 4.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        stroke-width: 0.75;
+        stroke-linejoin: round;
+        opacity: 0.75;
+        stroke-dasharray: 2800;
+        stroke-dashoffset: 2800;
+        animation: drawOutline 4.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
       }
 
-      /* ئالاھىدە يورۇق چاقنايدىغان چېگرا بۆلەكلىرى */
-      .map-highlight-seg {
+      /* يىپقا باغلانغان مارجاندەك چېكىتلىك نۇر سىزىقى (ئاستا ۋە نەپىس ئايلىنىدۇ) */
+      .map-pearl-beads {
         fill: none;
-        stroke: #E6FAFF;
-        stroke-width: 1.9;
+        stroke: #7CE0FF;
+        stroke-width: 2.5;
         stroke-linecap: round;
+        stroke-linejoin: round;
+        /* مارجان تىزمىسى: 12 دانە نۇرلۇق مارجان چېكىت، ئارىسىدا بوشلۇق بىلەن */
+        stroke-dasharray: 0.1 8.5 0.1 8.5 0.1 8.5 0.1 8.5 0.1 8.5 0.1 8.5 0.1 8.5 0.1 8.5 0.1 8.5 0.1 8.5 0.1 8.5 0.1 240;
+        stroke-dashoffset: 2650;
         opacity: 0;
-        animation: flashSeg 3s ease-in-out 3.5s infinite alternate;
+        animation: fadeInBeads 1.5s ease-out 3.2s forwards,
+                   flowBeadsSlow 28s linear 3.2s infinite;
       }
 
-      @keyframes traceLine {
+      /* مارجانلارنىڭ ئوتتۇرىسىدىكى پارلاق يادروسى */
+      .map-pearl-cores {
+        fill: none;
+        stroke: #FFFFFF;
+        stroke-width: 1.2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 0.1 8.5 0.1 8.5 0.1 8.5 0.1 8.5 0.1 8.5 0.1 8.5 0.1 8.5 0.1 8.5 0.1 8.5 0.1 8.5 0.1 8.5 0.1 240;
+        stroke-dashoffset: 2650;
+        opacity: 0;
+        animation: fadeInBeads 1.5s ease-out 3.2s forwards,
+                   flowBeadsSlow 28s linear 3.2s infinite;
+      }
+
+      @keyframes drawOutline {
         to { stroke-dashoffset: 0; }
       }
-
-      @keyframes flashSeg {
-        0% { opacity: 0.45; stroke-width: 1.4; }
-        100% { opacity: 1; stroke-width: 2.2; }
+      @keyframes fadeInBeads {
+        to { opacity: 0.95; }
+      }
+      @keyframes flowBeadsSlow {
+        from { stroke-dashoffset: 2650; }
+        to { stroke-dashoffset: 0; }
+      }
+      @keyframes pulseMapGlow {
+        0% { opacity: 0.25; stroke-width: 1.8; fill: rgba(0, 175, 222, 0.02); }
+        100% { opacity: 0.55; stroke-width: 3.0; fill: rgba(0, 175, 222, 0.05); }
       }
 
-      .nodes-fade {
+      /* 3. ئاي ۋە يۇلتۇز ئىچىدىكى كۆك نۇقتىلارنىڭ نەپىس ھەرىكىتى */
+      .emblem-wrapper {
         opacity: 0;
-        animation: showElem 1.8s ease-out 2.2s forwards;
+        animation: showSmooth 2s ease-out 1.2s forwards;
       }
-
-      .emblem-anim {
-        opacity: 0;
-        animation: showElem 2.4s ease-out 1.4s forwards,
-                   sparklePulse 3.2s ease-in-out 3.8s infinite alternate;
-      }
-
-      @keyframes showElem {
+      @keyframes showSmooth {
         to { opacity: 1; }
       }
 
-      @keyframes sparklePulse {
-        0% { opacity: 0.86; filter: brightness(0.95); }
-        100% { opacity: 1; filter: brightness(1.15); }
+      .dots-drift-1 {
+        animation: driftDots1 6.5s ease-in-out infinite alternate,
+                   shimmerDots 2.6s ease-in-out infinite alternate;
+      }
+      .dots-drift-2 {
+        animation: driftDots2 8.5s ease-in-out infinite alternate,
+                   shimmerDots 3.3s ease-in-out 1s infinite alternate;
+      }
+      .dots-drift-3 {
+        animation: driftDots3 5.5s ease-in-out infinite alternate,
+                   shimmerDots 2.1s ease-in-out 0.5s infinite alternate;
       }
 
-      .city-pin {
+      @keyframes driftDots1 {
+        0% { transform: translate(0px, 0px); }
+        100% { transform: translate(3.5px, -3.5px); }
+      }
+      @keyframes driftDots2 {
+        0% { transform: translate(0px, 0px); }
+        100% { transform: translate(-4px, 3px); }
+      }
+      @keyframes driftDots3 {
+        0% { transform: translate(0px, 0px) scale(0.99); transform-origin: 540px 432px; }
+        100% { transform: translate(2.5px, 2.5px) scale(1.01); transform-origin: 540px 432px; }
+      }
+      @keyframes shimmerDots {
+        0% { opacity: 0.65; }
+        100% { opacity: 1; }
+      }
+
+      /* 4. شەھەر نۇقتىلىرى ۋە خەتلىرى */
+      .city-node {
         opacity: 0;
-        animation: showElem 1.5s ease-out 3.4s forwards;
+        animation: showSmooth 1.5s ease-out 2.8s forwards;
       }
-
-      .radar {
+      .radar-ring {
         fill: none;
         stroke: #5CE1FF;
-        stroke-width: 1.1;
-        animation: radarWave 2.5s ease-out infinite;
+        stroke-width: 1.2;
+        animation: expandRing 2.6s ease-out infinite;
       }
-
-      @keyframes radarWave {
-        0% { r: 2; opacity: 0.95; }
-        100% { r: 16; opacity: 0; }
+      .radar-ring-2 {
+        fill: none;
+        stroke: #00AFDE;
+        stroke-width: 1;
+        animation: expandRing 2.6s ease-out 1.3s infinite;
       }
-
-      .city-lbl {
+      @keyframes expandRing {
+        0% { r: 2.5; opacity: 0.95; }
+        100% { r: 19; opacity: 0; }
+      }
+      .city-name {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        font-size: 12.5px;
+        font-size: 13.5px;
         font-weight: 600;
-        fill: #E6F9FF;
+        fill: #E8FAFF;
         letter-spacing: 1px;
-      }
-
-      .twk { animation: blink 2.8s ease-in-out infinite alternate; }
-      .twk2 { animation: blink 2.1s ease-in-out 0.9s infinite alternate; }
-      .twk3 { animation: blink 3.4s ease-in-out 1.7s infinite alternate; }
-
-      @keyframes blink {
-        0% { opacity: 0.2; }
-        100% { opacity: 0.95; }
       }
     </style>
   </defs>
 
-  <!-- 1. پاكىز كېچىلىك ئاسمان ۋە مەركىزىي كۆك نۇر تەگلىكى -->
-  <rect width="1024" height="680" fill="url(#bgSky)" />
-  <rect width="1024" height="680" fill="url(#blueAtmos)" />
+  <!-- 1. كېچىلىك ئاسمان تەگلىكى -->
+  <rect width="1000" height="720" fill="url(#bgSky)" />
+  <rect width="1000" height="720" fill="url(#centerGlow)" />
 
-  <!-- ئارقا تەگلىكتىكى سۇس چاقنايدىغان يۇلتۇزلار -->
-  <g fill="#B8F0FF" opacity="0.6">
-    <circle cx="95" cy="85" r="0.8" class="twk" />
-    <circle cx="185" cy="140" r="0.6" class="twk2" />
-    <circle cx="310" cy="70" r="0.9" class="twk3" />
-    <circle cx="680" cy="95" r="0.7" class="twk" />
-    <circle cx="840" cy="135" r="1.0" class="twk2" />
-    <circle cx="920" cy="240" r="0.8" class="twk3" />
-    <circle cx="875" cy="480" r="0.7" class="twk" />
-    <circle cx="790" cy="560" r="0.9" class="twk2" />
-    <circle cx="140" cy="540" r="0.8" class="twk3" />
-    <circle cx="75" cy="290" r="0.7" class="twk" />
+  <!-- 2. ئارقا تەگلىكتىكى توختىماي نەپىس ھەرىكەت قىلىدىغان يۇلتۇزلار (3 قەۋەت) -->
+  <g class="star-layer-1" fill="#8CE8FF" filter="url(#softBlueGlow)">
+    <circle cx="85" cy="75" r="1.1" />
+    <circle cx="210" cy="120" r="0.8" />
+    <circle cx="340" cy="65" r="1.2" />
+    <circle cx="520" cy="55" r="0.9" />
+    <circle cx="780" cy="80" r="1.1" />
+    <circle cx="910" cy="140" r="0.9" />
+    <circle cx="935" cy="310" r="1.2" />
+    <circle cx="885" cy="540" r="1.0" />
+    <circle cx="740" cy="635" r="0.8" />
+    <circle cx="430" cy="660" r="1.1" />
+    <circle cx="155" cy="610" r="0.9" />
+    <circle cx="65" cy="430" r="1.1" />
+    <circle cx="75" cy="240" r="0.8" />
   </g>
 
-  <!-- 2. شەرقىي تۈركىستاننىڭ يۇلتۇز تۈركۈمى خەرىتىسى (مەركەزگە تەڭشەلگەن) -->
-  <g transform="translate(80, 10)">
-    <!-- خەرىتە سىرتقى نۇر قەۋىتى -->
-    <path class="map-wire-glow" filter="url(#crispGlow)" d="
-      M 442,68 L 458,63 L 494,104 L 516,133 L 502,163 L 520,165
-      L 555,152 L 580,175 L 605,212 L 586,257 L 606,266 L 642,265
-      L 660,295 L 702,299 L 732,333 L 726,363 L 760,403 L 758,415
-      L 716,431 L 675,478 L 635,482 L 622,502 L 592,505 L 598,542
-      L 592,554 L 555,532 L 520,518 L 512,535 L 478,512 L 432,538
-      L 402,520 L 348,542 L 320,518 L 288,528 L 270,572 L 238,572
-      L 228,535 L 200,520 L 160,520 L 148,488 L 154,475 L 116,445
-      L 124,422 L 88,408 L 86,368 L 118,348 L 118,338 L 140,322
-      L 142,334 L 166,334 L 180,312 L 210,292 L 245,274 L 292,248
-      L 298,218 L 278,200 L 315,190 L 348,178 L 352,202 L 372,175
-      L 378,136 L 415,142 L 432,120 L 438,88 Z
+  <g class="star-layer-2" fill="#38C6F4">
+    <circle cx="145" cy="175" r="0.9" />
+    <circle cx="290" cy="135" r="0.7" />
+    <circle cx="445" cy="105" r="1.0" />
+    <circle cx="715" cy="130" r="0.8" />
+    <circle cx="845" cy="215" r="1.1" />
+    <circle cx="920" cy="435" r="0.8" />
+    <circle cx="820" cy="595" r="1.0" />
+    <circle cx="585" cy="645" r="0.9" />
+    <circle cx="275" cy="630" r="0.8" />
+    <circle cx="110" cy="535" r="1.0" />
+    <circle cx="48" cy="335" r="0.7" />
+    <circle cx="130" cy="95" r="0.6" />
+  </g>
+
+  <g class="star-layer-3" fill="#D6F8FF">
+    <circle cx="175" cy="60" r="0.7" />
+    <circle cx="610" cy="72" r="0.8" />
+    <circle cx="860" cy="70" r="0.7" />
+    <circle cx="955" cy="220" r="0.9" />
+    <circle cx="940" cy="590" r="0.8" />
+    <circle cx="665" cy="665" r="0.7" />
+    <circle cx="205" cy="660" r="0.9" />
+    <circle cx="55" cy="585" r="0.7" />
+    <circle cx="95" cy="160" r="0.8" />
+    <circle cx="315" cy="215" r="0.6" />
+    <circle cx="835" cy="490" r="0.7" />
+  </g>
+
+  <!-- 3. شەرقىي تۈركىستاننىڭ دەل تۈزىتىلگەن خەرىتىسى -->
+  <g transform="translate(0, -15)">
+    <!-- نەپىس تىنىق ئالىدىغان ئارقا نۇر قەۋىتى -->
+    <path class="map-base-glow" filter="url(#intenseGlow)" d="
+      M 639,138 L 656,136 L 671,139 L 677,155 L 693,166 L 722,181
+      L 739,202 L 754,239 L 763,262 L 758,284 L 748,295 L 746,312
+      L 754,327 L 792,331 L 829,341 L 855,356 L 882,377 L 895,377
+      L 896,401 L 910,418 L 917,442 L 908,452 L 906,466 L 866,472
+      L 836,483 L 814,506 L 806,527 L 791,528 L 792,553 L 780,563
+      L 786,591 L 732,600 L 680,609 L 683,636 L 695,647 L 714,666
+      L 712,676 L 689,683 L 697,695 L 703,708 L 696,716 L 679,712
+      L 661,702 L 656,706 L 642,698 L 604,689 L 552,690 L 522,688
+      L 492,708 L 444,709 L 407,708 L 392,703 L 385,693 L 370,692
+      L 349,709 L 330,705 L 304,691 L 284,680 L 256,718 L 228,717
+      L 199,703 L 198,660 L 181,657 L 154,648 L 136,639 L 122,638
+      L 111,622 L 135,610 L 138,595 L 131,583 L 116,574 L 97,572
+      L 88,553 L 104,540 L 112,519 L 94,494 L 99,478 L 106,447
+      L 115,436 L 134,441 L 146,431 L 164,429 L 178,431 L 179,446
+      L 207,454 L 222,431 L 236,419 L 256,423 L 281,408 L 315,399
+      L 354,392 L 388,351 L 386,315 L 393,283 L 376,282 L 376,271
+      L 426,271 L 477,271 L 468,260 L 488,225 L 508,187 L 549,210
+      L 587,210 L 591,186 L 594,167 L 619,165 L 638,155 Z
     " />
 
-    <!-- خەرىتە ناھايىتى نەپىس ئاساسىي سىزىقى -->
-    <path class="map-wire" d="
-      M 442,68 L 458,63 L 494,104 L 516,133 L 502,163 L 520,165
-      L 555,152 L 580,175 L 605,212 L 586,257 L 606,266 L 642,265
-      L 660,295 L 702,299 L 732,333 L 726,363 L 760,403 L 758,415
-      L 716,431 L 675,478 L 635,482 L 622,502 L 592,505 L 598,542
-      L 592,554 L 555,532 L 520,518 L 512,535 L 478,512 L 432,538
-      L 402,520 L 348,542 L 320,518 L 288,528 L 270,572 L 238,572
-      L 228,535 L 200,520 L 160,520 L 148,488 L 154,475 L 116,445
-      L 124,422 L 88,408 L 86,368 L 118,348 L 118,338 L 140,322
-      L 142,334 L 166,334 L 180,312 L 210,292 L 245,274 L 292,248
-      L 298,218 L 278,200 L 315,190 L 348,178 L 352,202 L 372,175
-      L 378,136 L 415,142 L 432,120 L 438,88 Z
+    <!-- خەرىتىنىڭ مارجان ئۆتكۈزۈلگەن ئىنچىكە يىپ سىزىقى -->
+    <path class="map-thread-line" filter="url(#softBlueGlow)" d="
+      M 639,138 L 656,136 L 671,139 L 677,155 L 693,166 L 722,181
+      L 739,202 L 754,239 L 763,262 L 758,284 L 748,295 L 746,312
+      L 754,327 L 792,331 L 829,341 L 855,356 L 882,377 L 895,377
+      L 896,401 L 910,418 L 917,442 L 908,452 L 906,466 L 866,472
+      L 836,483 L 814,506 L 806,527 L 791,528 L 792,553 L 780,563
+      L 786,591 L 732,600 L 680,609 L 683,636 L 695,647 L 714,666
+      L 712,676 L 689,683 L 697,695 L 703,708 L 696,716 L 679,712
+      L 661,702 L 656,706 L 642,698 L 604,689 L 552,690 L 522,688
+      L 492,708 L 444,709 L 407,708 L 392,703 L 385,693 L 370,692
+      L 349,709 L 330,705 L 304,691 L 284,680 L 256,718 L 228,717
+      L 199,703 L 198,660 L 181,657 L 154,648 L 136,639 L 122,638
+      L 111,622 L 135,610 L 138,595 L 131,583 L 116,574 L 97,572
+      L 88,553 L 104,540 L 112,519 L 94,494 L 99,478 L 106,447
+      L 115,436 L 134,441 L 146,431 L 164,429 L 178,431 L 179,446
+      L 207,454 L 222,431 L 236,419 L 256,423 L 281,408 L 315,399
+      L 354,392 L 388,351 L 386,315 L 393,283 L 376,282 L 376,271
+      L 426,271 L 477,271 L 468,260 L 488,225 L 508,187 L 549,210
+      L 587,210 L 591,186 L 594,167 L 619,165 L 638,155 Z
     " />
 
-    <!-- ئوڭ ۋە سول تەرەپتىكى پارلاپ تۇرىدىغان نۇرلۇق سىزىق بۆلەكلىرى -->
-    <polyline class="map-highlight-seg" filter="url(#crispGlow)" points="140,322 142,334 166,334 180,312" />
-    <polyline class="map-highlight-seg" filter="url(#crispGlow)" points="758,415 716,431 675,478" />
+    <!-- يىپقا باغلانغان مارجاندەك چېكىتلىك نۇر تىزمىسى (ئاستا ئايلىنىدۇ) -->
+    <path class="map-pearl-beads" filter="url(#intenseGlow)" d="
+      M 639,138 L 656,136 L 671,139 L 677,155 L 693,166 L 722,181
+      L 739,202 L 754,239 L 763,262 L 758,284 L 748,295 L 746,312
+      L 754,327 L 792,331 L 829,341 L 855,356 L 882,377 L 895,377
+      L 896,401 L 910,418 L 917,442 L 908,452 L 906,466 L 866,472
+      L 836,483 L 814,506 L 806,527 L 791,528 L 792,553 L 780,563
+      L 786,591 L 732,600 L 680,609 L 683,636 L 695,647 L 714,666
+      L 712,676 L 689,683 L 697,695 L 703,708 L 696,716 L 679,712
+      L 661,702 L 656,706 L 642,698 L 604,689 L 552,690 L 522,688
+      L 492,708 L 444,709 L 407,708 L 392,703 L 385,693 L 370,692
+      L 349,709 L 330,705 L 304,691 L 284,680 L 256,718 L 228,717
+      L 199,703 L 198,660 L 181,657 L 154,648 L 136,639 L 122,638
+      L 111,622 L 135,610 L 138,595 L 131,583 L 116,574 L 97,572
+      L 88,553 L 104,540 L 112,519 L 94,494 L 99,478 L 106,447
+      L 115,436 L 134,441 L 146,431 L 164,429 L 178,431 L 179,446
+      L 207,454 L 222,431 L 236,419 L 256,423 L 281,408 L 315,399
+      L 354,392 L 388,351 L 386,315 L 393,283 L 376,282 L 376,271
+      L 426,271 L 477,271 L 468,260 L 488,225 L 508,187 L 549,210
+      L 587,210 L 591,186 L 594,167 L 619,165 L 638,155 Z
+    " />
 
-    <!-- خەرىتە بۇلۇڭىدىكى يۇلتۇز نۇقتىلىرى -->
-    <g class="nodes-fade">
-      <use href="#vNode" x="442" y="68" /><use href="#vNode" x="458" y="63" />
-      <use href="#vNode" x="494" y="104" /><use href="#vNode" x="516" y="133" />
-      <use href="#vNode" x="502" y="163" /><use href="#vNode" x="555" y="152" />
-      <use href="#vNode" x="580" y="175" /><use href="#vNode" x="605" y="212" />
-      <use href="#vNode" x="586" y="257" /><use href="#vNode" x="642" y="265" />
-      <use href="#vNode" x="660" y="295" /><use href="#vNode" x="702" y="299" />
-      <use href="#vNode" x="732" y="333" /><use href="#vNode" x="726" y="363" />
-      <use href="#vNode" x="760" y="403" /><use href="#vNode" x="758" y="415" />
-      <use href="#vNode" x="716" y="431" /><use href="#vNode" x="675" y="478" />
-      <use href="#vNode" x="635" y="482" /><use href="#vNode" x="592" y="505" />
-      <use href="#vNode" x="598" y="542" /><use href="#vNode" x="592" y="554" />
-      <use href="#vNode" x="555" y="532" /><use href="#vNode" x="520" y="518" />
-      <use href="#vNode" x="478" y="512" /><use href="#vNode" x="432" y="538" />
-      <use href="#vNode" x="402" y="520" /><use href="#vNode" x="348" y="542" />
-      <use href="#vNode" x="320" y="518" /><use href="#vNode" x="288" y="528" />
-      <use href="#vNode" x="270" y="572" /><use href="#vNode" x="238" y="572" />
-      <use href="#vNode" x="228" y="535" /><use href="#vNode" x="200" y="520" />
-      <use href="#vNode" x="160" y="520" /><use href="#vNode" x="148" y="488" />
-      <use href="#vNode" x="116" y="445" /><use href="#vNode" x="124" y="422" />
-      <use href="#vNode" x="88" y="408" /><use href="#vNode" x="86" y="368" />
-      <use href="#vNode" x="118" y="348" /><use href="#vNode" x="140" y="322" />
-      <use href="#vNode" x="166" y="334" /><use href="#vNode" x="180" y="312" />
-      <use href="#vNode" x="210" y="292" /><use href="#vNode" x="245" y="274" />
-      <use href="#vNode" x="292" y="248" /><use href="#vNode" x="298" y="218" />
-      <use href="#vNode" x="278" y="200" /><use href="#vNode" x="315" y="190" />
-      <use href="#vNode" x="348" y="178" /><use href="#vNode" x="352" y="202" />
-      <use href="#vNode" x="372" y="175" /><use href="#vNode" x="378" y="136" />
-      <use href="#vNode" x="415" y="142" /><use href="#vNode" x="432" y="120" />
+    <path class="map-pearl-cores" d="
+      M 639,138 L 656,136 L 671,139 L 677,155 L 693,166 L 722,181
+      L 739,202 L 754,239 L 763,262 L 758,284 L 748,295 L 746,312
+      L 754,327 L 792,331 L 829,341 L 855,356 L 882,377 L 895,377
+      L 896,401 L 910,418 L 917,442 L 908,452 L 906,466 L 866,472
+      L 836,483 L 814,506 L 806,527 L 791,528 L 792,553 L 780,563
+      L 786,591 L 732,600 L 680,609 L 683,636 L 695,647 L 714,666
+      L 712,676 L 689,683 L 697,695 L 703,708 L 696,716 L 679,712
+      L 661,702 L 656,706 L 642,698 L 604,689 L 552,690 L 522,688
+      L 492,708 L 444,709 L 407,708 L 392,703 L 385,693 L 370,692
+      L 349,709 L 330,705 L 304,691 L 284,680 L 256,718 L 228,717
+      L 199,703 L 198,660 L 181,657 L 154,648 L 136,639 L 122,638
+      L 111,622 L 135,610 L 138,595 L 131,583 L 116,574 L 97,572
+      L 88,553 L 104,540 L 112,519 L 94,494 L 99,478 L 106,447
+      L 115,436 L 134,441 L 146,431 L 164,429 L 178,431 L 179,446
+      L 207,454 L 222,431 L 236,419 L 256,423 L 281,408 L 315,399
+      L 354,392 L 388,351 L 386,315 L 393,283 L 376,282 L 376,271
+      L 426,271 L 477,271 L 468,260 L 488,225 L 508,187 L 549,210
+      L 587,210 L 591,186 L 594,167 L 619,165 L 638,155 Z
+    " />
+
+    <!-- خەرىتە بۇلۇڭلىرىدىكى چاقنايدىغان يۇلتۇز تۈگۈنلىرى -->
+    <g class="emblem-wrapper">
+      <use href="#mapVertex" x="639" y="138" /><use href="#mapVertex" x="671" y="139" />
+      <use href="#mapVertex" x="722" y="181" /><use href="#mapVertex" x="763" y="262" />
+      <use href="#mapVertex" x="754" y="327" /><use href="#mapVertex" x="829" y="341" />
+      <use href="#mapVertex" x="895" y="377" /><use href="#mapVertex" x="917" y="442" />
+      <use href="#mapVertex" x="866" y="472" /><use href="#mapVertex" x="806" y="527" />
+      <use href="#mapVertex" x="786" y="591" /><use href="#mapVertex" x="680" y="609" />
+      <use href="#mapVertex" x="714" y="666" /><use href="#mapVertex" x="703" y="708" />
+      <use href="#mapVertex" x="642" y="698" /><use href="#mapVertex" x="522" y="688" />
+      <use href="#mapVertex" x="492" y="708" /><use href="#mapVertex" x="392" y="703" />
+      <use href="#mapVertex" x="349" y="709" /><use href="#mapVertex" x="284" y="680" />
+      <use href="#mapVertex" x="256" y="718" /><use href="#mapVertex" x="199" y="703" />
+      <use href="#mapVertex" x="198" y="660" /><use href="#mapVertex" x="111" y="622" />
+      <use href="#mapVertex" x="135" y="610" /><use href="#mapVertex" x="88" y="553" />
+      <use href="#mapVertex" x="112" y="519" /><use href="#mapVertex" x="94" y="494" />
+      <use href="#mapVertex" x="115" y="436" /><use href="#mapVertex" x="178" y="431" />
+      <use href="#mapVertex" x="207" y="454" /><use href="#mapVertex" x="236" y="419" />
+      <use href="#mapVertex" x="354" y="392" /><use href="#mapVertex" x="388" y="351" />
+      <use href="#mapVertex" x="393" y="283" /><use href="#mapVertex" x="376" y="271" />
+      <use href="#mapVertex" x="477" y="271" /><use href="#mapVertex" x="508" y="187" />
+      <use href="#mapVertex" x="549" y="210" /><use href="#mapVertex" x="587" y="210" />
+      <use href="#mapVertex" x="594" y="167" /><use href="#mapVertex" x="619" y="165" />
     </g>
 
-    <!-- 3. شەرقىي تۈركىستان كۆك رەڭلىك چاچما يۇلتۇز زەررىچىلىك ئاي ۋە يۇلتۇز -->
-    <g class="emblem-anim">
-      <!-- زەررىچە بۇلۇتى قەۋىتى -->
-      <g filter="url(#stardustCloud)" fill="#38C6F4">
-        <!-- ئاي -->
-        <path d="M 488,284
-                 A 112,112 0 1,0 488,432
-                 A 88,88 0 1,1 488,284 Z" />
-        <!-- يۇلتۇز -->
-        <polygon points="
-          498,358
-          542,346 556,302 578,340 622,338
-          590,368 604,412 564,388 526,414 540,370
-        " />
+    <!-- 4. ئاستىغا چۈشۈرۈلگەن ۋە كۆككە مايىل نۇقتىلاردىن ھاسىل بولغان ئاي ۋە يۇلتۇز -->
+    <g class="emblem-wrapper">
+      <!-- يۇمشاق كۆك ئارقا نۇر فوندى -->
+      <g opacity="0.32" filter="url(#intenseGlow)" fill="#0095D9">
+        <path d="M 590,365 A 104,104 0 1,0 590,499 A 85,85 0 1,1 590,365 Z" />
+        <polygon points="593,433 628,423 636,387 658,417 694,414 672,443 693,473 657,461 634,490 627,454" />
       </g>
 
-      <!-- ئاي ۋە يۇلتۇزنىڭ گىرۋەكلىرىنى گەۋدىلەندۈرىدىغان ئۇششاق كۆك-ئاق يۇلتۇز زەررىچىلىرى -->
-      <g filter="url(#crispGlow)">
-        <!-- ئاي سىرتقى گىرۋەك زەررىچىلىرى -->
-        <use href="#sparkCluster" transform="translate(465, 268)" />
-        <use href="#sparkCluster" transform="translate(425, 255)" />
-        <use href="#sparkCluster" transform="translate(385, 258)" />
-        <use href="#sparkCluster" transform="translate(348, 275)" />
-        <use href="#sparkCluster" transform="translate(320, 305)" />
-        <use href="#sparkCluster" transform="translate(304, 342)" />
-        <use href="#sparkCluster" transform="translate(304, 382)" />
-        <use href="#sparkCluster" transform="translate(322, 418)" />
-        <use href="#sparkCluster" transform="translate(352, 446)" />
-        <use href="#sparkCluster" transform="translate(392, 462)" />
-        <use href="#sparkCluster" transform="translate(435, 460)" />
-        <use href="#sparkCluster" transform="translate(472, 444)" />
-        <!-- ئاي ئىچكى گىرۋەك زەررىچىلىرى -->
-        <use href="#sparkCluster" transform="translate(442, 274) scale(0.8)" />
-        <use href="#sparkCluster" transform="translate(398, 276) scale(0.8)" />
-        <use href="#sparkCluster" transform="translate(362, 298) scale(0.8)" />
-        <use href="#sparkCluster" transform="translate(342, 336) scale(0.8)" />
-        <use href="#sparkCluster" transform="translate(342, 378) scale(0.8)" />
-        <use href="#sparkCluster" transform="translate(364, 416) scale(0.8)" />
-        <use href="#sparkCluster" transform="translate(402, 438) scale(0.8)" />
-        <use href="#sparkCluster" transform="translate(445, 440) scale(0.8)" />
-        <!-- يۇلتۇز ئۇچلىرىدىكى زەررىچىلەر -->
-        <use href="#sparkCluster" transform="translate(556, 305) scale(0.9)" />
-        <use href="#sparkCluster" transform="translate(616, 338) scale(0.9)" />
-        <use href="#sparkCluster" transform="translate(600, 408) scale(0.9)" />
-        <use href="#sparkCluster" transform="translate(530, 410) scale(0.9)" />
-        <use href="#sparkCluster" transform="translate(504, 358) scale(0.9)" />
-        <use href="#sparkCluster" transform="translate(564, 360) scale(1.1)" />
+      <!-- ئاي ۋە يۇلتۇز قېلىپى ئىچىدە ھەرىكەتلىنىدىغان كۆك نۇقتىلار (3 قەۋەت) -->
+      <g clip-path="url(#emblemClip)" filter="url(#softBlueGlow)">
+        <rect x="350" y="295" width="380" height="275" fill="url(#dotGrid1)" class="dots-drift-1" />
+        <rect x="350" y="295" width="380" height="275" fill="url(#dotGrid2)" class="dots-drift-2" />
+        <rect x="350" y="295" width="380" height="275" fill="url(#dotGrid3)" class="dots-drift-3" />
       </g>
 
-      <!-- ئەتراپقا چېچىلغان ئۇششاق چاچما نۇرلار -->
-      <g fill="#68DCFF" opacity="0.7">
-        <circle cx="215" cy="185" r="0.8" class="twk" />
-        <circle cx="235" cy="210" r="0.6" class="twk2" />
-        <circle cx="195" cy="235" r="0.9" class="twk3" />
-        <circle cx="255" cy="195" r="0.7" class="twk" />
-        <circle cx="285" cy="315" r="0.8" class="twk2" />
-        <circle cx="272" cy="365" r="1.0" class="twk3" />
-        <circle cx="290" cy="410" r="0.7" class="twk" />
-        <circle cx="485" cy="320" r="0.9" class="twk2" />
-        <circle cx="495" cy="395" r="0.8" class="twk3" />
+      <!-- ئاي ۋە يۇلتۇزنىڭ گىرۋەك كۆك مەرۋايىت نۇقتىلىرى (Blue Dotted Contour) -->
+      <g fill="none" stroke="#29B6F6" stroke-width="1.7" stroke-linecap="round" stroke-dasharray="0.4 4.2" filter="url(#softBlueGlow)" class="dots-drift-3">
+        <path d="M 590,365 A 104,104 0 1,0 590,499 A 85,85 0 1,1 590,365 Z" />
+        <polygon points="593,433 628,423 636,387 658,417 694,414 672,443 693,473 657,461 634,490 627,454" />
       </g>
     </g>
 
-    <!-- 4. شەھەر نۇقتىلىرى ۋە لاتىنچە ئىسمى: Ürümchi ۋە Qeshqer -->
+    <!-- 5. شەھەر نۇقتىلىرى: Ürümchi ۋە Qeshqer -->
     <!-- Ürümchi -->
-    <g class="city-pin">
-      <circle cx="485" cy="228" r="2.5" class="radar" />
-      <circle cx="485" cy="228" r="2.8" fill="#FFFFFF" stroke="#00AFDE" stroke-width="1.4" filter="url(#crispGlow)" />
-      <line x1="490" y1="224" x2="512" y2="208" stroke="#5CE1FF" stroke-width="0.8" stroke-dasharray="2,2" />
-      <text x="517" y="211" class="city-lbl" filter="url(#crispGlow)">Ürümchi</text>
+    <g class="city-node">
+      <circle cx="595" cy="305" r="3" class="radar-ring" />
+      <circle cx="595" cy="305" r="3" class="radar-ring-2" />
+      <circle cx="595" cy="305" r="3.2" fill="#FFFFFF" stroke="#00AFDE" stroke-width="1.5" filter="url(#softBlueGlow)" />
+      <line x1="600" y1="301" x2="622" y2="286" stroke="#5CE1FF" stroke-width="0.9" stroke-dasharray="2,2" />
+      <text x="628" y="290" class="city-name" filter="url(#softBlueGlow)">Ürümchi</text>
     </g>
 
-    <!-- Qeshqer -->
-    <g class="city-pin">
-      <circle cx="172" cy="388" r="2.5" class="radar" />
-      <circle cx="172" cy="388" r="2.8" fill="#FFFFFF" stroke="#00AFDE" stroke-width="1.4" filter="url(#crispGlow)" />
-      <line x1="167" y1="384" x2="145" y2="368" stroke="#5CE1FF" stroke-width="0.8" stroke-dasharray="2,2" />
-      <text x="140" y="365" text-anchor="end" class="city-lbl" filter="url(#crispGlow)">Qeshqer</text>
+    <!-- Qeshqer (خەت نۇقتىنىڭ ئوڭ تەرىپىدە تۇرىدۇ) -->
+    <g class="city-node">
+      <circle cx="205" cy="515" r="3" class="radar-ring" />
+      <circle cx="205" cy="515" r="3" class="radar-ring-2" />
+      <circle cx="205" cy="515" r="3.2" fill="#FFFFFF" stroke="#00AFDE" stroke-width="1.5" filter="url(#softBlueGlow)" />
+      <line x1="211" y1="513" x2="234" y2="504" stroke="#5CE1FF" stroke-width="0.9" stroke-dasharray="2,2" />
+      <text x="240" y="508" text-anchor="start" class="city-name" filter="url(#softBlueGlow)">Qeshqer</text>
     </g>
   </g>
 </svg>
