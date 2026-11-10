@@ -253,12 +253,31 @@
         letter-spacing: 1px;
       }
 
+      .geometry-layer {
+        fill: none;
+        stroke: #42B8DF;
+        stroke-width: 0.8;
+        opacity: 0.08;
+      }
+      .geometry-drift-1 {
+        animation: driftGeometry1 34s ease-in-out infinite alternate;
+      }
+      .geometry-drift-2 {
+        animation: driftGeometry2 42s ease-in-out infinite alternate;
+      }
+      @keyframes driftGeometry1 {
+        from { transform: translate(0, 0); }
+        to { transform: translate(9px, -5px); }
+      }
+      @keyframes driftGeometry2 {
+        from { transform: translate(0, 0); }
+        to { transform: translate(-7px, 5px); }
+      }
       .hero-title,
       .hero-subtitle,
       .hero-copy {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         opacity: 0;
-        animation: heroReveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
       }
       .hero-title {
         font-size: 39px;
@@ -266,21 +285,22 @@
         letter-spacing: -1.2px;
         fill: #F1FBFF;
         filter: url(#softBlueGlow);
-        animation-delay: 0.25s;
+        clip-path: inset(0 100% 0 0);
+        animation: titleReveal 1.45s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
       }
       .hero-subtitle {
         font-size: 18px;
         font-weight: 600;
         letter-spacing: 0.4px;
         fill: #62D8F5;
-        animation-delay: 0.55s;
+        animation: subtitleDrop 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.65s forwards;
       }
       .hero-copy {
         font-size: 15px;
         font-weight: 400;
         letter-spacing: 0.15px;
         fill: #C5D8E4;
-        animation-delay: 0.85s;
+        animation: heroReveal 1s cubic-bezier(0.22, 1, 0.36, 1) 1.1s forwards;
       }
       .hero-accent {
         stroke: #00AFDE;
@@ -293,11 +313,21 @@
         from { opacity: 0; transform: translateX(-12px); }
         to { opacity: 1; transform: translateX(0); }
       }
+      @keyframes titleReveal {
+        from { opacity: 0; clip-path: inset(0 100% 0 0); transform: translateX(-9px); }
+        to { opacity: 1; clip-path: inset(0 0 0 0); transform: translateX(0); }
+      }
+      @keyframes subtitleDrop {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
       @keyframes accentReveal {
         from { opacity: 0; stroke-dasharray: 0 210; }
         to { opacity: 1; stroke-dasharray: 210 0; }
       }
       @media (prefers-reduced-motion: reduce) {
+        .geometry-drift-1,
+        .geometry-drift-2,
         .hero-title,
         .hero-subtitle,
         .hero-copy,
@@ -306,6 +336,9 @@
           opacity: 1;
           transform: none;
         }
+        .hero-title {
+          clip-path: none;
+        }
       }
     </style>
   </defs>
@@ -313,6 +346,27 @@
   <!-- 1. كېچىلىك ئاسمان تەگلىكى -->
   <rect width="1000" height="350" fill="url(#bgSky)" />
   <rect width="1000" height="350" fill="url(#centerGlow)" />
+
+  <g class="geometry-layer geometry-drift-1">
+    <path d="M 28,276 L 122,223 L 213,270 L 306,207 L 382,258" />
+    <path d="M 122,223 L 139,318 M 213,270 L 238,170 M 306,207 L 322,302" />
+    <circle cx="122" cy="223" r="20" />
+    <circle cx="213" cy="270" r="12" />
+    <polygon points="306,192 321,207 306,222 291,207" />
+    <path d="M 582,56 L 664,99 L 747,51 L 836,94 L 954,37" />
+    <path d="M 664,99 L 648,176 M 747,51 L 760,139 M 836,94 L 822,181" />
+    <circle cx="747" cy="51" r="17" />
+    <polygon points="836,77 853,94 836,111 819,94" />
+  </g>
+  <g class="geometry-layer geometry-drift-2">
+    <path d="M 52,72 L 118,111 L 176,77 L 230,117" />
+    <path d="M 118,111 L 105,169 M 176,77 L 188,145" />
+    <polygon points="118,98 131,111 118,124 105,111" />
+    <path d="M 556,303 L 636,267 L 711,315 L 793,276 L 901,325" />
+    <path d="M 636,267 L 627,212 M 711,315 L 723,250 M 793,276 L 804,333" />
+    <circle cx="636" cy="267" r="13" />
+    <circle cx="793" cy="276" r="19" />
+  </g>
 
   <!-- 2. ئارقا تەگلىكتىكى توختىماي نەپىس ھەرىكەت قىلىدىغان يۇلتۇزلار (3 قەۋەت) -->
   <g class="star-layer-1" fill="#8CE8FF" filter="url(#softBlueGlow)">
@@ -369,7 +423,7 @@
   </g>
 
   <!-- 3. شەرقىي تۈركىستاننىڭ دەل تۈزىتىلگەن خەرىتىسى -->
-  <g transform="translate(550, -15) scale(0.48)">
+  <g transform="translate(550, -30) scale(0.48)">
     <!-- نەپىس تىنىق ئالىدىغان ئارقا نۇر قەۋىتى -->
     <path class="map-base-glow" filter="url(#intenseGlow)" d="
       M 639,138 L 656,136 L 671,139 L 677,155 L 693,166 L 722,181
