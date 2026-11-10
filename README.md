@@ -50,6 +50,7 @@ A Chrome Manifest V3 extension project exploring ad blocking, content scripts, a
   <img src="https://img.shields.io/badge/JavaScript-learning%20by%20building-F7DF1E?logo=javascript&logoColor=111111" alt="JavaScript" />
   <img src="https://img.shields.io/badge/HTML-web%20interfaces-E34F26?logo=html5&logoColor=ffffff" alt="HTML" />
   <img src="https://img.shields.io/badge/Chrome-extensions-4285F4?logo=googlechrome&logoColor=ffffff" alt="Chrome extensions" />
+  <img src="https://img.shields.io/badge/Visual%20Studio%20Code-development%20environment-007ACC?logo=visualstudiocode&logoColor=ffffff" alt="Visual Studio Code" />
 </p>
 
 ---
