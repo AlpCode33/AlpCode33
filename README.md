@@ -82,15 +82,6 @@ I am an independent developer and lifelong learner, building practical software 
 
 <p align="center">
   <a href="https://github.com/AlpCode33">
-    <img height="175" src="https://github-readme-stats.vercel.app/api?username=AlpCode33&show_icons=true&rank_icon=github&hide_border=true&theme=tokyonight" alt="AlpCode33's GitHub statistics" />
-  </a>
-  <a href="https://github.com/AlpCode33">
-    <img height="175" src="https://github-readme-stats.vercel.app/api/top-langs/?username=AlpCode33&layout=compact&hide_border=true&theme=tokyonight" alt="Most used languages in AlpCode33's repositories" />
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/AlpCode33">
     <img src="https://streak-stats.demolab.com?user=AlpCode33&theme=tokyonight&hide_border=true" alt="AlpCode33's GitHub contribution streak" />
   </a>
 </p>
