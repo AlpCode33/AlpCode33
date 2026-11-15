@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="160" viewBox="0 0 960 160" role="img" aria-labelledby="title description">
+  <title id="title">Build, learn, and share</title>
+  <desc id="description">A GitHub profile banner celebrating continuous learning and creating.</desc>
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe08a"/>
+      <stop offset="1" stop-color="#f0a92e"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#18243a"/>
+      <stop offset="1" stop-color="#101827"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="958" height="158" rx="18" fill="url(#panel)" stroke="#2b3b55" stroke-width="2"/>
+  <circle cx="92" cy="80" r="52" fill="#21324a"/>
+  <path d="M72 48h40v11c0 17-8 29-20 33-12-4-20-16-20-33V48Zm-7 6H54v7c0 13 8 21 21 23m54-30h11v7c0 13-8 21-21 23M88 93v14m-17 8h42l-4 9H75l-4-9Z" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m92 56 3 7 8 1-6 5 2 8-7-4-7 4 2-8-6-5 8-1 3-7Z" fill="url(#gold)"/>
+  <text x="174" y="67" fill="#e6edf3" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" letter-spacing="1">KEEP BUILDING</text>
+  <text x="174" y="100" fill="#8da2bd" font-family="Arial, Helvetica, sans-serif" font-size="16">Curious by nature. Improving one project at a time.</text>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" letter-spacing="1">
+    <rect x="665" y="55" width="94" height="38" rx="19" fill="#172d43" stroke="#286183"/>
+    <text x="712" y="79" fill="#7dd3fc" text-anchor="middle">BUILD</text>
+    <rect x="772" y="55" width="91" height="38" rx="19" fill="#202c43" stroke="#475c89"/>
+    <text x="817" y="79" fill="#a5b4fc" text-anchor="middle">LEARN</text>
+    <rect x="876" y="55" width="62" height="38" rx="19" fill="#273124" stroke="#627343"/>
+    <text x="907" y="79" fill="#c6e48c" text-anchor="middle">SHARE</text>
+  </g>
+</svg>

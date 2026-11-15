@@ -99,15 +99,15 @@ I am an independent developer and lifelong learner, building practical software 
 
 <p align="center">
   <a href="https://github.com/AlpCode33">
-    <img src="https://github-readme-activity-graph.vercel.app/graph?username=AlpCode33&theme=tokyo-night&hide_border=true&area=true" alt="AlpCode33's GitHub contribution graph" />
+    <img src="https://ghchart.rshah.org/AlpCode33" alt="AlpCode33's GitHub contribution graph" />
   </a>
 </p>
 
-## 🏆 GitHub Trophies
+## 🏆 Building in Public
 
 <p align="center">
   <a href="https://github.com/AlpCode33">
-    <img src="https://github-profile-trophy.vercel.app/?username=AlpCode33&theme=tokyonight&no-frame=true&no-bg=true&margin-w=8" alt="GitHub trophies for AlpCode33" />
+    <img src="./trophy-card.svg" alt="Build, learn, and share — AlpCode33" />
   </a>
 </p>
 
